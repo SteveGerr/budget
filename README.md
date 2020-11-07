@@ -1,4 +1,4 @@
-# udemy-vue-1
+# budget-vue-1
 
 ## Project setup
 ```
