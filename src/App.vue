@@ -1,8 +1,11 @@
 <template>
   <div id="app">
   <div class="app-wrap">
-    <BudgetList :list="list" @deleteItem="onDeleteItem"></BudgetList>
-    <TotalBalance :total="sumTotal"></TotalBalance>
+    <Form @submitForm="onSubmitForm"></Form>
+    <div class="wrap-balance">
+      <BudgetList :list="list" @deleteItem="onDeleteItem"></BudgetList>
+      <TotalBalance :total="sumTotal"></TotalBalance>
+    </div>
   </div>
   </div>
 </template>
@@ -11,12 +14,14 @@
 
 import BudgetList from './components/BudgetList';
 import TotalBalance from './components/TotalBalance';
+import Form from './components/Form';
 
 export default {
   name: 'App',
   components: {
     BudgetList,
-    TotalBalance
+    TotalBalance,
+    Form
   },
 
   data() {
@@ -47,7 +52,20 @@ export default {
 
   methods: {
     onDeleteItem(id) {
+      //this.list - объект из которого надо удалить, id - айди элемента, который надо удалить
       this.$delete(this.list, id)
+    },
+    onSubmitForm(data) {
+      // Генерируем id
+      const newObj = {
+        ...data,
+        id: String(Math.random()) //генерируем случайное число и преобразуем его в строку
+      };
+      //Устанавливаем значения в объект.
+      // this.list - куда устанавливаем,
+      // newObj.id - под каким ключём
+      // newObj - что хотим установить
+      this.$set(this.list, newObj.id, newObj);
     }
   }
 
@@ -58,6 +76,8 @@ export default {
 
 <style>
 #app {
+  width: 100%;
+  overflow: hidden;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -67,8 +87,15 @@ export default {
 }
 .app-wrap {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  padding: 10px;
   background: dodgerblue;
+}
+.wrap-balance {
+  display: flex;
+  align-items: center;
+  width: 100%;
 }
 </style>

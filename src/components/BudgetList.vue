@@ -16,7 +16,7 @@
         </div>
       </template>
       <el-alert v-else
-        title="warning alert"
+        :title="titleAlert"
         type="warning"
         :closable="false">
       </el-alert>
@@ -29,7 +29,7 @@ export default {
   name: "BudgetList",
 
   data: () =>  ({
-    title: ""
+    titleAlert: "Enter the data"
   }),
 
   props: {
