@@ -1,8 +1,8 @@
 <template>
   <div class="budget-list-wrap">
-    <el-card :header="title">
+    <el-card>
       <template v-if="!isEmpty">
-        <BudgetListItem  v-for="(item, prop) in list" :key="prop"> </BudgetListItem>
+        <BudgetListItem :item="item"  v-for="(item, prop) in list" :key="prop"> </BudgetListItem>
       </template>
       <el-alert v-else
         :title="titleAlert"
