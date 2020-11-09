@@ -3,7 +3,7 @@
   <div class="app-wrap">
     <Form @submitForm="onSubmitForm"></Form>
     <div class="wrap-balance">
-      <BudgetList :list="list" @deleteItem="onDeleteItem"></BudgetList>
+      <BudgetList :list="list" ></BudgetList>
       <TotalBalance :total="sumTotal"></TotalBalance>
     </div>
   </div>
@@ -51,10 +51,6 @@ export default {
   },
 
   methods: {
-    onDeleteItem(id) {
-      //this.list - объект из которого надо удалить, id - айди элемента, который надо удалить
-      this.$delete(this.list, id)
-    },
     onSubmitForm(data) {
       // Генерируем id
       const newObj = {

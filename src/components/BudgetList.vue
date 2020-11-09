@@ -2,7 +2,7 @@
   <div class="budget-list-wrap">
     <el-card>
       <template v-if="!isEmpty">
-        <BudgetListItem :item="item"  v-for="(item, prop) in list" :key="prop"> </BudgetListItem>
+        <BudgetListItem :item="item"  v-for="(item, prop) in list" :key="prop" @deleteItem="onDeleteItem"> </BudgetListItem>
       </template>
       <el-alert v-else
         :title="titleAlert"
@@ -36,10 +36,11 @@ export default {
   },
 
   methods: {
-    // Передаём id элемента, который нужно удалить
-    delItem(id) {
-      this.$emit("deleteItem", id);
-    }
+    onDeleteItem(id) {
+      //this.list - объект из которого надо удалить, id - айди элемента, который надо удалить
+      this.$delete(this.list, id)
+    },
+
   },
 
   computed: {

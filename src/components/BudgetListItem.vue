@@ -1,15 +1,15 @@
 <template>
     <div class="listItem">
-        <span>Sum:</span>
+        <span>Sum: </span>
         <span class="budget-value">{{ item.value }}</span>
         <br>
         <hr>
-        <span>Comment:</span>
+        <span>Comment: </span>
         <br>
-        <span class="budget-comment">{{ }}</span>
+        <span class="budget-comment">{{ item.value }}</span>
         <br>
         <hr>
-        <el-button type="danger" size="mini" @click="delItem()">Delete</el-button>
+        <el-button  type="danger" size="mini" @click="delItem(item.id)">Delete</el-button>
 
     </div>
 
@@ -30,6 +30,14 @@ computed: {
     isEmpty() {
       return !Object.keys(this.list).length;
     }
+},
+
+methods: {
+    // Передаём id элемента, который нужно удалить
+    delItem(id) {
+      this.$emit("deleteItem", id);
+    }
+
 }
 
 }
