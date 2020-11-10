@@ -66,12 +66,22 @@ export default {
       this.$refs.addItemForm.validate(valid => {
         if (valid) {
           if (this.formData.type === "OUTCOME" && this.formData.value < 0) {
-            return;
+            // Через пользовательское событие submitForm передаём объект формы formData наружу из компонента
+            this.$emit("submitForm", {...this.formData});
+            // Сбрасываем поля(element-ui - https://element.eleme.io/#/en-US/component/form#form-item-methods)
+            this.$refs.addItemForm.resetFields();
+          } else if (this.formData.type === "OUTCOME" && this.formData.value > 0) {
+            this.formData.value = " ";
+            console.log("No negative");
+            console.log(this.formData.value);
+          } else {
+            // Через пользовательское событие submitForm передаём объект формы formData наружу из компонента
+            this.$emit("submitForm", {...this.formData});
+            // Сбрасываем поля(element-ui - https://element.eleme.io/#/en-US/component/form#form-item-methods)
+            this.$refs.addItemForm.resetFields();
+
           }
-          // Через пользовательское событие submitForm передаём объект формы formData наружу из компонента
-          this.$emit("submitForm", {...this.formData});
-          // Сбрасываем поля(element-ui - https://element.eleme.io/#/en-US/component/form#form-item-methods)
-          this.$refs.addItemForm.resetFields();
+
         }
       })
     }

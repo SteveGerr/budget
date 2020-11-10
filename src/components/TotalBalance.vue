@@ -1,7 +1,7 @@
 
 
 <template>
-  <div class="total-value">Balance: {{ total }}</div>
+  <div class="total-value">Balance: <span class="total-num" :class="{numNull: total === 0, isNegative: total < 0}"> {{ total }}</span></div>
 </template>
 
 <script>
@@ -25,7 +25,19 @@ export default {
     padding: 20px;
     font-size: 26px;
     text-align: center;
-    color: floralwhite;
+    color: white;
   }
+  .total-num {
+    color: rgb(9, 97, 1);
+
+  }
+  .total-num.numNull {
+    color: aliceblue;
+  }
+  .total-num.isNegative {
+    color: red;
+  }
+
+
 
 </style>
