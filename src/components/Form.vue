@@ -65,6 +65,9 @@ export default {
       //validate - elements-ui
       this.$refs.addItemForm.validate(valid => {
         if (valid) {
+          if (this.formData.type === "OUTCOME" && this.formData.value < 0) {
+            return;
+          }
           // Через пользовательское событие submitForm передаём объект формы formData наружу из компонента
           this.$emit("submitForm", {...this.formData});
           // Сбрасываем поля(element-ui - https://element.eleme.io/#/en-US/component/form#form-item-methods)
