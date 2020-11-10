@@ -62,7 +62,6 @@ export default {
     margin: 10px;
     padding: 10px;
     box-shadow: 0 0 5px #707070;
-    background: white;
   }
   .budget-value {
     display: flex;

@@ -28,6 +28,7 @@ export default {
     color: white;
   }
   .total-num {
+    margin: 0 5px;
     color: rgb(9, 97, 1);
 
   }
