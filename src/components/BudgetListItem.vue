@@ -2,7 +2,7 @@
   <div class="listItem" :class="{'redBg': item.type === 'OUTCOME', 'greenBg': item.type === 'INCOME'}">
     <i :class="{'el-icon-arrow-down': item.type === 'OUTCOME', 'el-icon-arrow-up': item.type === 'INCOME'}"></i>
     <span>Sum: </span>
-    <span class="budget-value" :class="{'red': item.type === 'OUTCOME', 'green': item.type === 'INCOME'}">{{ item.value }}</span>
+    <span class="budget-value" :class="{'red': item.type === 'OUTCOME', 'white': item.type === 'INCOME'}">{{ item.value }}</span>
     <br />
     <hr />
     <span>Comment: </span>
@@ -82,9 +82,9 @@ export default {
   .redBg {
     background: #ffafaf;
   }
-  .green {
+  .white {
     font-weight: 700;
-    color: seagreen;
+    color: white;
   }
   .greenBg {
     background: #1fcf26a6;

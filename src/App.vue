@@ -85,7 +85,9 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  max-width: 80vw;
+  margin: 0 auto;
   padding: 10px;
   background: dodgerblue;
 }

@@ -91,7 +91,7 @@ export default {
 
 <style scoped>
   .form-card {
-    width: 100%;
+    width: 50%;
     margin: 10px;
   }
   .type-select {

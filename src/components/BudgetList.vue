@@ -1,8 +1,21 @@
 <template>
   <div class="budget-list-wrap">
     <el-card>
+      <el-select 
+        v-model="value" 
+        placeholder="Select"
+        @change="sortBy"
+      >
+        <el-option
+          v-for="item in options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+          >
+        </el-option>
+      </el-select>
       <template v-if="!isEmpty">
-        <BudgetListItem :item="item"  v-for="(item, prop) in list" :key="prop" @deleteItem="onDeleteItem"> </BudgetListItem>
+        <BudgetListItem :item="item"  v-for="(item, prop) in sortedList" :key="prop" @deleteItem="onDeleteItem"> </BudgetListItem>
       </template>
       <el-alert v-else
         :title="titleAlert"
@@ -21,7 +34,25 @@ export default {
   name: "BudgetList",
 
   data: () =>  ({
-    titleAlert: "Enter the data"
+    titleAlert: "Enter the data",
+    value: "All", //for select. Попадает в v-model и перезаписывается выбранным элементом из options
+                  //:value="item.value"
+    //for select
+    options: [
+      {
+        value: 'All',
+        label: 'All'
+      },
+      {
+        value: 'INCOME',
+        label: 'INCOME'
+      },
+      {
+        value: 'OUTCOME',
+        label: 'OUTCOME'
+      },
+    ],
+    sortedList: [],
   }),
 
   components: {
@@ -39,14 +70,43 @@ export default {
     onDeleteItem(id) {
       //this.list - объект из которого надо удалить, id - айди элемента, который надо удалить
       this.$delete(this.list, id)
+      console.log("Delete");
     },
+    sortBy(selected) {
+      this.sortedList = []; //Очищаем список
+
+      let arr = Object.values(this.list);
+      // console.log(arr);
+      let that = this;
+      arr.map(function(item) {
+        if (item.type === selected) {
+          that.sortedList.push(item)
+          console.log(arr);
+        } 
+      })
+
+      // for(let item in this.list) {
+      //     if (this.list[item].type === selected) {
+      //       this.sortedList.push(this.list[item])
+      //     }          
+      // }
+    },
+
 
   },
 
   computed: {
     isEmpty() {
       return !Object.keys(this.list).length;
-    }
+    },
+    sorting() {
+      // Ежели, sortedList не пустой, возвращаем его и он попадает в BudgetListItem, где перебирается
+      if (this.sortedList.length) {
+        return this.sortedList;
+      } else {        
+        return this.list;
+      }
+    },
   }
 }
 </script>
