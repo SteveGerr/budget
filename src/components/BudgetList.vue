@@ -4,7 +4,6 @@
       <el-select 
         v-model="value" 
         placeholder="Select"
-        @change="sortBy"
       >
         <el-option
           v-for="item in options"
@@ -15,7 +14,7 @@
         </el-option>
       </el-select>
       <template v-if="!isEmpty">
-        <BudgetListItem :item="item"  v-for="(item, prop) in sortedList" :key="prop" @deleteItem="onDeleteItem"> </BudgetListItem>
+        <BudgetListItem :item="item"  v-for="(item, prop) in filterList" :key="prop" @deleteItem="onDeleteItem"> </BudgetListItem>
       </template>
       <el-alert v-else
         :title="titleAlert"
@@ -72,41 +71,27 @@ export default {
       this.$delete(this.list, id)
       console.log("Delete");
     },
-    sortBy(selected) {
-      this.sortedList = []; //Очищаем список
-
-      let arr = Object.values(this.list);
-      // console.log(arr);
-      let that = this;
-      arr.map(function(item) {
-        if (item.type === selected) {
-          that.sortedList.push(item)
-          console.log(arr);
-        } 
-      })
-
-      // for(let item in this.list) {
-      //     if (this.list[item].type === selected) {
-      //       this.sortedList.push(this.list[item])
-      //     }          
-      // }
-    },
-
-
   },
 
   computed: {
     isEmpty() {
       return !Object.keys(this.list).length;
     },
-    sorting() {
-      // Ежели, sortedList не пустой, возвращаем его и он попадает в BudgetListItem, где перебирается
-      if (this.sortedList.length) {
-        return this.sortedList;
-      } else {        
-        return this.list;
+
+    filterList() {
+      // Следим за массивом значений из list
+      let arr = Object.values(this.list);
+      // Ежели value из Data равно All
+      if (this.value === "All") {
+        // Возвращаем весь массив
+        return arr;
+      } else {
+        //иначе фильтруем по текущему value и выводим
+        return arr.filter(item => item.type === this.value)
       }
     },
+
+
   }
 }
 </script>

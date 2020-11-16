@@ -38,7 +38,14 @@ export default {
           value: -50,
           comment: "Some comm 2",
           id: 2
+        },
+        3: {
+          type: 'INCOME',
+          value: 500,
+          comment: "Some comm 3",
+          id: 3
         }
+
 
       }
     }
