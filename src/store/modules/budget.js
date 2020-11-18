@@ -30,17 +30,22 @@ const budgetStore = {
         budgetList: ({ list }) => Object.values(list),
     },
 
+
+    // В мутациях инициируем то, что должно произойти
     mutations: {
         ADD_ITEM(state, item) {
+            //глобальный метод
+            // где меняем, какое свойство, на какое свойство
             Vue.set(state.list, item.id, item)
         }
     },
-
+    //В экшонах вызываем, запускаем само изменение
     actions: {
         addNewItem({ commit }, item) {
             //Описываем данные
             const newItem = {
-                ...item //поступит из компонента
+                ...item, //поступит из компонента
+                id: Number(Math.random())
             };
             // Вызываем мутацию, чтобы внести изменение в этот Store
             commit("ADD_ITEM", newItem);

@@ -27,34 +27,12 @@ export default {
 
   data() {
     return {
-      // list: {
-      //   1: {
-      //     type: 'INCOME',
-      //     value: 100,
-      //     comment: "Some comm",
-      //     id: 1
-      //   },
-      //   2: {
-      //     type: 'OUTCOME',
-      //     value: -50,
-      //     comment: "Some comm 2",
-      //     id: 2
-      //   },
-      //   3: {
-      //     type: 'INCOME',
-      //     value: 500,
-      //     comment: "Some comm 3",
-      //     id: 3
-      //   }
-
-
-      // }
     }
   },
 
   computed: {
     sumTotal() {
-     return Object.values(this.budgetList).reduce((acc, item) =>
+     return this.budgetList.reduce((acc, item) =>
      acc + item.value, 0)},
 
     ...mapGetters('budget', ['budgetList'])
@@ -65,16 +43,20 @@ export default {
   methods: {
     ...mapActions('budget', ["addNewItem"]),
 
+    //data - данные пришедшие из Form.vue
     onSubmitForm(data) {
-      // Генерируем id
       const newObj = {
-        ...data, //генерируем случайное число и преобразуем его в строку
+        ...data,
+        id: Number(Math.random()) 
       };
       //Устанавливаем значения в объект.
-      // this.list - куда устанавливаем,
+      // this.budgetList - куда устанавливаем,
       // newObj.id - под каким ключём
       // newObj - что хотим установить
-      this.$set(this.budgetList, newObj.id, newObj);
+      // this.$set(this.budgetList, newObj.id, newObj);
+
+      //Добавляем в экшоны полученый объект
+      this.addNewItem(newObj);
     },
 
   },
