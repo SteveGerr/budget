@@ -3,7 +3,7 @@
   <div class="app-wrap">
     <Form @submitForm="onSubmitForm"></Form>
     <div class="wrap-balance">
-      <BudgetList :list="list" ></BudgetList>
+      <BudgetList :list="budgetList" ></BudgetList>
       <TotalBalance :total="sumTotal"></TotalBalance>
     </div>
   </div>
@@ -15,6 +15,7 @@
 import BudgetList from './components/BudgetList';
 import TotalBalance from './components/TotalBalance';
 import Form from './components/Form';
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: 'App',
@@ -26,51 +27,57 @@ export default {
 
   data() {
     return {
-      list: {
-        1: {
-          type: 'INCOME',
-          value: 100,
-          comment: "Some comm",
-          id: 1
-        },
-        2: {
-          type: 'OUTCOME',
-          value: -50,
-          comment: "Some comm 2",
-          id: 2
-        },
-        3: {
-          type: 'INCOME',
-          value: 500,
-          comment: "Some comm 3",
-          id: 3
-        }
+      // list: {
+      //   1: {
+      //     type: 'INCOME',
+      //     value: 100,
+      //     comment: "Some comm",
+      //     id: 1
+      //   },
+      //   2: {
+      //     type: 'OUTCOME',
+      //     value: -50,
+      //     comment: "Some comm 2",
+      //     id: 2
+      //   },
+      //   3: {
+      //     type: 'INCOME',
+      //     value: 500,
+      //     comment: "Some comm 3",
+      //     id: 3
+      //   }
 
 
-      }
+      // }
     }
   },
 
   computed: {
     sumTotal() {
-     return Object.values(this.list).reduce((acc, item) =>
-     acc + item.value, 0)}
+     return Object.values(this.budgetList).reduce((acc, item) =>
+     acc + item.value, 0)},
+
+    ...mapGetters('budget', ['budgetList'])
+
+    
   },
 
   methods: {
+    ...mapActions('budget', ["addNewItem"]),
+
     onSubmitForm(data) {
       // Генерируем id
       const newObj = {
-        ...data,
-        id: String(Math.random()) //генерируем случайное число и преобразуем его в строку
+        ...data, //генерируем случайное число и преобразуем его в строку
       };
       //Устанавливаем значения в объект.
       // this.list - куда устанавливаем,
       // newObj.id - под каким ключём
       // newObj - что хотим установить
-      this.$set(this.list, newObj.id, newObj);
-    }
-  }
+      this.$set(this.budgetList, newObj.id, newObj);
+    },
+
+  },
 
 }
 

@@ -20,8 +20,7 @@
   </ElCard>
 </template>
 
-<script> 
-
+<script>
 export default {
   name: "Form",
 
@@ -61,8 +60,7 @@ export default {
     }
   },
 
-  methods: {    
-
+  methods: {
     onSubmit() {
       //validate - elements-ui
       this.$refs.addItemForm.validate(valid => {
@@ -73,7 +71,7 @@ export default {
           this.$refs.addItemForm.resetFields();
         }
       })
-    },
+    }
   }
 }
 </script>

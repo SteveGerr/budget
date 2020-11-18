@@ -14,12 +14,7 @@
         </el-option>
       </el-select>
       <template v-if="!isEmpty">
-        <BudgetListItem 
-          :item="item"  
-          v-for="(item, prop) in filterList" 
-          :key="prop" 
-          @deleteItem="onDeleteItem"> 
-        </BudgetListItem>
+        <BudgetListItem :item="item"  v-for="(item, prop) in filterList" :key="prop" @deleteItem="onDeleteItem"> </BudgetListItem>
       </template>
       <el-alert v-else
         :title="titleAlert"
@@ -33,8 +28,6 @@
 <script>
 
 import BudgetListItem from "./BudgetListItem";
-import { mapGetters } from "vuex";
-
 
 export default {
   name: "BudgetList",
@@ -67,27 +60,27 @@ export default {
 
   props: {
     list: {
-      type: Array,      
+      type: Object,
+      default: () => ({}) //Для пропсов типа объект, обязательно в функции указываем, тип, т.е. объект
     }
   },
 
   methods: {
     onDeleteItem(id) {
       //this.list - объект из которого надо удалить, id - айди элемента, который надо удалить
-      this.$delete(this.filterList, id)
+      this.$delete(this.list, id)
+      console.log("Delete");
     },
   },
 
   computed: {
-    ...mapGetters('budget', ['budgetList']),
-
     isEmpty() {
       return !Object.keys(this.list).length;
     },
 
     filterList() {
       // Следим за массивом значений из list
-      let arr = Object.values(this.budgetList);
+      let arr = Object.values(this.list);
       // Ежели value из Data равно All
       if (this.value === "All") {
         // Возвращаем весь массив
@@ -97,7 +90,7 @@ export default {
         return arr.filter(item => item.type === this.value)
       }
     },
-    
+
 
   }
 }
